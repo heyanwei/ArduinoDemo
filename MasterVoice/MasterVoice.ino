@@ -30,7 +30,7 @@ int onCount = 0;
 // the setup function runs once when you press reset or power the board
 void setup() {
 
-  Serial.begin(115200);
+  Serial.begin(9600);
 
   pinMode(trigPin, OUTPUT);
   pinMode(ledPin, OUTPUT);
