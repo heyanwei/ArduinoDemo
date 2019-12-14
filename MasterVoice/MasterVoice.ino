@@ -8,9 +8,11 @@
 
 #include "US100Y.h"
 #include "WifiServerY.h"
+#include "LedY.h"
 
 US100Y *_us100;
 WifiServerY *_server;
+LedY *_led;
 
 void setup()
 {
@@ -20,22 +22,33 @@ void setup()
 
   // _server = new WifiServerY("YFRobot","yfjqr2015","172.16.1.132",
   //     "172.16.1.1", "255.255.255.0", 80);
-  _server = new WifiServerY("YFRobot","yfjqr2015","",
-      "", "", 80);
-  _us100 = new US100Y(12,13);
+  _server = new WifiServerY("YFRobot", "yfjqr2015", "",
+                            "", "", 80);
+  _us100 = new US100Y(12, 13);
+  _led = new LedY(14);
 }
 
 void loop()
 {
-  if ((!_server)||(!_us100))
+  if ((!_server) || (!_us100))
   {
-    return;   
+    return;
   }
   _server->ProcessClient();
 
   long dist = _us100->CalcDistance();
-  String data="Distance: ";
-  data+=dist;
+
+  if (dist > 40)
+  {
+    _led->SetOn(true);
+  }
+  else
+  {
+    _led->SetOn(false);
+  }
+
+  String data = "Distance: ";
+  data += dist;
 
   Serial.println(data);
   _server->SendString(data);
