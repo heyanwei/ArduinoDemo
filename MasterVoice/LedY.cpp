@@ -1,22 +1,22 @@
 #include "LedY.h"
 
-LedY::LedY(int ledPin)
+LedY::LedY(int pin)
 {
-    _ledPin=ledPin;
+    _pin=pin;
 
-    pinMode(_ledPin, OUTPUT);
-    digitalWrite(_ledPin, LOW);
+    pinMode(_pin, OUTPUT);
+    digitalWrite(_pin, LOW);
 }
 
 void LedY::SetOn(bool isOn)
 {
     if(isOn)
     {
-        digitalWrite(_ledPin, HIGH);
+        digitalWrite(_pin, HIGH);
     }
     else
     {
-        digitalWrite(_ledPin, LOW);       
+        digitalWrite(_pin, LOW);       
     }
     
 }

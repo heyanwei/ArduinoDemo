@@ -2,11 +2,12 @@
 
 #include <ESP8266WiFi.h>
 
-class LedY
+class SR602Y
 {
 public:
-    LedY(int pin);
-    void SetOn(bool isOn);
+    SR602Y(int pin);
+
+    bool HasSignal();
 
 private:
     int _pin;

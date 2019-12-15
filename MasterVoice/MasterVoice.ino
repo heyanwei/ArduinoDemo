@@ -9,10 +9,12 @@
 #include "US100Y.h"
 #include "WifiServerY.h"
 #include "LedY.h"
+#include "SR602Y.h"
 
 US100Y *_us100;
 WifiServerY *_server;
 LedY *_led;
+SR602Y *_sr602;
 
 void setup()
 {
@@ -26,17 +28,21 @@ void setup()
                             "", "", 80);
   _us100 = new US100Y(12, 13);
   _led = new LedY(14);
+  _sr602 = new SR602Y(FUNC_GPIO15);
 }
 
 void loop()
 {
-  if ((!_server) || (!_us100))
+  if ((!_server) || (!_us100) || (!_sr602))
   {
     return;
   }
+
   _server->ProcessClient();
 
   long dist = _us100->CalcDistance();
+
+  bool isSrOn = _sr602->HasSignal();
 
   if (dist > 40)
   {
@@ -49,6 +55,15 @@ void loop()
 
   String data = "Distance: ";
   data += dist;
+  data += ", rs602: ";
+  if (isSrOn)
+  {
+    data += "on";
+  }
+  else
+  {
+    data += "off";
+  }
 
   Serial.println(data);
   _server->SendString(data);
