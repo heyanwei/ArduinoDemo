@@ -27,8 +27,8 @@ void setup()
   _server = new WifiServerY("YFRobot", "yfjqr2015", "",
                             "", "", 80);
   _us100 = new US100Y(12, 13);
-  _led = new LedY(14);
-  _sr602 = new SR602Y(FUNC_GPIO15);
+  _led = new LedY(2);
+  _sr602 = new SR602Y(14);
 }
 
 void loop()
